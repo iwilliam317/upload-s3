@@ -22,8 +22,8 @@ module.exports = {
         const allowedMimeTypes = [
             'image/jpeg',
             'image/pjpeg',
-            'image.gif',
-            'image.png'
+            'image/gif',
+            'image/png'
         ]
 
         if(allowedMimeTypes.includes(file.mimetype)){
