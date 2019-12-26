@@ -10,7 +10,6 @@ routes.post('/uploads', multer(multerConfig).single('file'), async (req, res) =>
     const key = filename.split('-')[0]
 
     try {
-        console.log(name, key, size)
         const post = await Post.create({ name, size, key, url: ''})
         return res.status('200').json({'file': req.file, post})
     }
