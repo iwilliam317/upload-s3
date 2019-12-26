@@ -2,6 +2,9 @@ const routes = require('express').Router()
 const multer = require('multer')
 const multerConfig = require('./config/multer')
 const Post = require('./models/Post')
+const multerS3 = require('multer-s3')
+const aws = require('aws-sdk')
+
 
 routes.get('/health', (req, res) => res.json({status: 200}))
 routes.post('/uploads', multer(multerConfig).single('file'), async (req, res) => {
