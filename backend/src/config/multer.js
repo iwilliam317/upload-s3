@@ -1,11 +1,32 @@
 const multer = require('multer')
 const crypto = require('crypto')
 const path = require('path')
+const multerS3 = require('multer-s3')
+const aws = require('aws-sdk')
 
-const storage = {
+aws.config.update({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_DEFAULT_REGION
+});
+const storageTypes= {
     local: multer.diskStorage({
         destination: (req, file, cb) => cb(null, path.resolve(__dirname, '..', '..', 'tmp', 'uploads')),
         filename: (req, file, cb) => {
+            crypto.randomBytes(16, (err, hash) => {
+                if(err) cb(err)
+
+                file.key = `${hash.toString('hex')}-${file.originalname}`
+                cb(null, file.key)
+            })
+        }
+    }),
+    s3: multerS3({
+        s3: new aws.S3(),
+        contentType: multerS3.AUTO_CONTENT_TYPE,
+        acl: 'public-read',
+        bucket: process.env.BUCKET_NAME,
+        key: (req, file, cb) => {
             crypto.randomBytes(16, (err, hash) => {
                 if(err) cb(err)
 
@@ -17,7 +38,7 @@ const storage = {
 }
 module.exports = {
     dest: path.resolve(__dirname, '..', '..', 'tmp', 'uploads'),
-    storage: storage['local'],
+    storage: storageTypes['s3'],
     limits: {
         fileSize: 2 * 1024 * 1024
     },
