@@ -2,13 +2,8 @@ const multer = require('multer')
 const crypto = require('crypto')
 const path = require('path')
 const multerS3 = require('multer-s3')
-const aws = require('aws-sdk')
+const aws = require('./aws')
 
-aws.config.update({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_DEFAULT_REGION
-});
 const storageTypes= {
     local: multer.diskStorage({
         destination: (req, file, cb) => cb(null, path.resolve(__dirname, '..', '..', 'tmp', 'uploads')),
