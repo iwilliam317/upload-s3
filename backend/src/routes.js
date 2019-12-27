@@ -11,9 +11,8 @@ routes.post('/uploads', multer(multerConfig).single('file'), async (req, res) =>
         return res.status('200').json({'file': req.file, post})
     }
     catch (err){
-        throw err
+        return res.status('500').json(err)
     }
-
 })
 
 module.exports = routes
