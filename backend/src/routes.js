@@ -4,7 +4,15 @@ const multerConfig = require('./config/multer')
 const Post = require('./models/Post')
 
 routes.get('/health', (req, res) => res.json({status: 200}))
-routes.post('/uploads', multer(multerConfig).single('file'), async (req, res) => {
+routes.get('/posts', async (req, res) => {
+    try {
+        const posts = await Post.find({})
+        res.status(200).json(posts)
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+routes.post('/posts', multer(multerConfig).single('file'), async (req, res) => {
     const {originalname: name, size, key} = req.file
     try {
         const post = await Post.create({ name, size, key, url: ''})
