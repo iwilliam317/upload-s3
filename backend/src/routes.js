@@ -6,7 +6,7 @@ const Post = require('./models/Post')
 routes.get('/health', (req, res) => res.json({status: 200}))
 routes.get('/posts', async (req, res) => {
     try {
-        const posts = await Post.find({})
+        const posts = await Post.find({}).lean()
         res.status(200).json(posts)
     } catch (error) {
         res.status(500).send(error)
