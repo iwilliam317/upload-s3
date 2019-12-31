@@ -9,7 +9,7 @@ routes.get('/posts', async (req, res) => {
         const posts = await Post.find({}).lean()
         res.status(200).json(posts)
     } catch (error) {
-        res.status(500).send(error)
+        res.status(500).json(error)
     }
 })
 
