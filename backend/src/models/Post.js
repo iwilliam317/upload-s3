@@ -13,7 +13,7 @@ const PostSchema = new mongoose.Schema({
 
 PostSchema.pre('save', function () {
     if (!this.url) {
-        this.url = `http://localhost:3000/files/${this.key}`
+        this.url = `${process.env.APP_URL}/files/${this.key}`
     }
 })
 
