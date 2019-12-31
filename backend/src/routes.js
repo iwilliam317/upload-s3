@@ -25,7 +25,7 @@ routes.delete('/posts/:id', async (req,res) => {
 routes.post('/posts', multer(multerConfig).single('file'), async (req, res) => {
     const {originalname: name, size, key} = req.file
     try {
-        const post = await Post.create({ name, size, key, url: ''})
+        const post = await Post.create({ name, size, key})
         return res.status('200').json({post: post.toObject()})
     }
     catch (err){
