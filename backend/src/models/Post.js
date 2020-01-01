@@ -25,10 +25,11 @@ PostSchema.pre('remove', function () {
     if(process.env.STORAGE_TYPE === 's3'){
         const params = {Bucket: process.env.BUCKET_NAME, Key: this.key}
         s3.deleteObject(params).promise()
-    } else{
-        fs.unlink(path.resolve(__dirname, '..', '..', 'tmp', 'uploads', this.key), function(err){
+    } else {
+        const pathKey = path.resolve(__dirname, '..', '..', 'tmp', 'uploads', this.key)
+        fs.unlink(pathKey, function(err){
             if (err) return err
-            console.log('removed from local')
+            return
         })
     }
 })
