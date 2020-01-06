@@ -19,7 +19,7 @@ routes.delete('/posts/:id', async (req,res) => {
         await post.remove()
         res.status(200).json({message: 'Post deleted!'})
     } catch (error) {
-        
+        res.status(500).json(error)
     }
 })
 routes.post('/posts', multer(multerConfig).single('file'), async (req, res) => {
