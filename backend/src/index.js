@@ -14,3 +14,5 @@ app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp','uploads'))
 app.use(require('./routes'))
 
 app.listen(PORT)
+
+module.exports = app

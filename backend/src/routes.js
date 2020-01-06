@@ -3,7 +3,7 @@ const multer = require('multer')
 const multerConfig = require('./config/multer')
 const Post = require('./models/Post')
 
-routes.get('/health', (req, res) => res.json({status: 200}))
+routes.get('/health', (req, res) => res.json({status: 200, message: "This is working ;)"}))
 routes.get('/posts', async (req, res) => {
     try {
         const posts = await Post.find({}).lean()
