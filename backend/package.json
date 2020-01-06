@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "test": "NODE_ENV=TEST mocha --timeout 2000 --exit",
     "dev": "nodemon --inspect src/index.js",
     "start": "node src/index.js"
   },
@@ -17,6 +18,9 @@
     "multer-s3": "^2.9.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^7.0.0",
     "nodemon": "^2.0.2"
   }
 }
