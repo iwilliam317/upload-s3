@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 
-class App extends Component {
+class Upload extends Component {
     render(){
         return <><h1>Hey</h1></>
     }
 }
 
-export default App
+export default Upload
