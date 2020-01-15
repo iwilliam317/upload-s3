@@ -1,8 +1,19 @@
 import React, { Component } from 'react'
 import Dropzone from 'react-dropzone'
-import { DropContainer } from './styles'
+import { DropContainer, UploadMessage } from './styles'
 
 class Upload extends Component {
+
+    renderMessage = (isDragActive, isDragReject) => {
+        if(!isDragActive){
+            return <UploadMessage>Drag the files here...</UploadMessage>
+        }
+        if(isDragReject){
+            return <UploadMessage type='Error'>File(s) not supported...</UploadMessage>
+        }
+
+        return <UploadMessage type='success'>Drop the files here...</UploadMessage>
+    }
     render() {
         return (<>
             <h1>Hey</h1>
@@ -13,7 +24,7 @@ class Upload extends Component {
                         isDragActive={isDragActive}
                         isDragReject={isDragReject}
                     >
-                        <p>Drag 'n' drop some files here, or click to select files</p>
+                        {this.renderMessage(isDragActive, isDragReject)}
                         <input {...getInputProps()} />
                     </DropContainer>
                 )}
