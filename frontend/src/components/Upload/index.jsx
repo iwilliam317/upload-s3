@@ -16,7 +16,6 @@ class Upload extends Component {
     }
     render() {
         return (<>
-            <h1>Hey</h1>
             <Dropzone accept='image/*' onDropAccepted={acceptedFiles => console.log(acceptedFiles)}>
                 {({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
                     <DropContainer
