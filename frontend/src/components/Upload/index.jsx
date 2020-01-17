@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Dropzone from 'react-dropzone'
 import { DropContainer, UploadMessage } from './styles'
+import FileList from '../FileList'
 
 class Upload extends Component {
 
@@ -16,6 +17,7 @@ class Upload extends Component {
     }
     render() {
         return (<>
+            <FileList/>
             <Dropzone accept='image/*' onDropAccepted={acceptedFiles => console.log(acceptedFiles)}>
                 {({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
                     <DropContainer
