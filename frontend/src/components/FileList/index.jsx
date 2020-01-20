@@ -16,7 +16,7 @@ const FileList = () => (
                 <CircularProgressbar
                     strokeWidth={10} value={80} text={'80%'}
                     styles={
-                        { root: { width: 24 }, path: { stroke: '#7159c1' } }
+                        { root: { width: 30 }, path: { stroke: '#7159c1' } }
                     } />
             </div>
         </li>
