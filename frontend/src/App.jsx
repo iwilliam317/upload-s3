@@ -14,7 +14,7 @@ class App extends Component {
     handleUpload = files => {
         const uploadedFiles = files.map(file => ({
             file, 
-            id: uniqueId,
+            id: uniqueId(),
         }))
         console.log(`Received ${JSON.stringify(uploadedFiles)}`);
         
