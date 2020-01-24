@@ -15,8 +15,9 @@ class Upload extends Component {
         return <UploadMessage type='success'>Drop the files here...</UploadMessage>
     }
     render() {
+        const {handleUpload} = this.props
         return (<>
-            <Dropzone accept='image/*' onDropAccepted={acceptedFiles => console.log(acceptedFiles)}>
+            <Dropzone accept='image/*' onDropAccepted={handleUpload}>
                 {({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
                     <DropContainer
                         {...getRootProps()}
