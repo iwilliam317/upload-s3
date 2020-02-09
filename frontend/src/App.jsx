@@ -17,7 +17,12 @@ class App extends Component {
             file, 
             id: uniqueId(),
             name: file.name,
-            readableSize: filesize(22257664)
+            readableSize: filesize(22257664),
+            preview: URL.createObjectURL(file),
+            progress: 0,
+            uploaded: false,
+            error: false,
+            url: null
         }))
         console.log(`Received ${JSON.stringify(uploadedFiles)}`);
         
