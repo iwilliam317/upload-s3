@@ -4,6 +4,7 @@ import GlobalStyle from './styles/global'
 import { Container, Content } from './styles/index'
 import FileList from './components/FileList'
 import {uniqueId} from 'lodash'
+import filesize from 'filesize'
 
 
 class App extends Component {
@@ -15,6 +16,8 @@ class App extends Component {
         const uploadedFiles = files.map(file => ({
             file, 
             id: uniqueId(),
+            name: file.name,
+            readableSize: filesize(22257664)
         }))
         console.log(`Received ${JSON.stringify(uploadedFiles)}`);
         
