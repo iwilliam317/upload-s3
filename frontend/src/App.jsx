@@ -3,7 +3,7 @@ import Upload from './components/Upload'
 import GlobalStyle from './styles/global'
 import { Container, Content } from './styles/index'
 import FileList from './components/FileList'
-import {uniqueId} from 'lodash'
+import { uniqueId } from 'lodash'
 import filesize from 'filesize'
 
 
@@ -14,7 +14,7 @@ class App extends Component {
 
     handleUpload = files => {
         const uploadedFiles = files.map(file => ({
-            file, 
+            file,
             id: uniqueId(),
             name: file.name,
             readableSize: filesize(22257664),
@@ -25,15 +25,19 @@ class App extends Component {
             url: null
         }))
         console.log(`Received ${JSON.stringify(uploadedFiles)}`);
-        
+
+        this.setState({ uploadedFiles: this.state.uploadedFiles.concat(uploadedFiles) })
     }
 
     render() {
+        const { uploadedFiles } = this.state
         return (<Container>
             <GlobalStyle />
             <Content>
-                <Upload handleUpload={this.handleUpload}/>
-                <FileList />
+                <Upload handleUpload={this.handleUpload} />
+                {!!uploadedFiles.length && (
+                    <FileList files={uploadedFiles} />
+                )}
             </Content>
         </Container>
         )
