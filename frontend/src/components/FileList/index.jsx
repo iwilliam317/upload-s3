@@ -11,7 +11,7 @@ const FileList = ({ files }) => (
                     <Preview src={uploadedFile.preview}></Preview>
                     <div>
                         <strong>{uploadedFile.name}</strong>
-                        <span>{uploadedFile.readableSize} <button onClick={() => { }}>Delete</button></span>
+                        {uploadedFile.uploaded && <span>{uploadedFile.readableSize} <button onClick={() => { }}>Delete</button></span>}
                     </div>
                 </FileInfo>
                 <div>

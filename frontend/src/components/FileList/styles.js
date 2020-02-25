@@ -8,6 +8,7 @@ export const Container = styled.ul`
         justify-content: space-between;
         align-items: center;
         color: '#444';
+        margin-top: 15px;
     }
 
     & + li {
