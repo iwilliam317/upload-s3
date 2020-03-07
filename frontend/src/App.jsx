@@ -31,6 +31,14 @@ class App extends Component {
         uploadedFiles.forEach(uploadedFile => this.processUpload(uploadedFile))
     }
 
+    updateFile = (id, data) => {
+        const {uploadedFiles} = this.state
+        this.setState({uploadedFiles: uploadedFiles.map(uploadedFile => {
+            return id === uploadedFile.id ? {...uploadedFile, ...data} : uploadedFile
+        })})
+       
+    }
+
     processUpload =  uploadedFile => {
         const data = new FormData()
         data.append('file', uploadedFile.file, uploadedFile.name)
@@ -41,6 +49,7 @@ class App extends Component {
                 const progress = parseInt(Math.round((e.loaded*100)/e.total))
                 console.log(e)
                 console.log(progress)
+                this.updateFile(uploadedFile.id, {progress})
             }
         })
     }
