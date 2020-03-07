@@ -5,7 +5,7 @@ import { Container, Content } from './styles/index'
 import FileList from './components/FileList'
 import { uniqueId } from 'lodash'
 import filesize from 'filesize'
-
+import api from './services/api'
 
 class App extends Component {
     state = {
@@ -27,8 +27,23 @@ class App extends Component {
         console.log(`Received ${JSON.stringify(uploadedFiles)}`);
 
         this.setState({ uploadedFiles: this.state.uploadedFiles.concat(uploadedFiles) })
+
+        uploadedFiles.forEach(uploadedFile => this.processUpload(uploadedFile))
     }
 
+    processUpload =  uploadedFile => {
+        const data = new FormData()
+        data.append('file', uploadedFile.file, uploadedFile.name)
+        console.log(data, uploadedFile)
+
+        api.post('/posts', data, {
+            onUploadProgress: e => {
+                const progress = parseInt(Math.round((e.loaded*100)/e.total))
+                console.log(e)
+                console.log(progress)
+            }
+        })
+    }
     render() {
         const { uploadedFiles } = this.state
         return (<Container>
