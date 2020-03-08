@@ -32,26 +32,30 @@ class App extends Component {
     }
 
     updateFile = (id, data) => {
-        const {uploadedFiles} = this.state
-        this.setState({uploadedFiles: uploadedFiles.map(uploadedFile => {
-            return id === uploadedFile.id ? {...uploadedFile, ...data} : uploadedFile
-        })})
-       
+        const { uploadedFiles } = this.state
+        this.setState({
+            uploadedFiles: uploadedFiles.map(uploadedFile => {
+                return id === uploadedFile.id ? { ...uploadedFile, ...data } : uploadedFile
+            })
+        })
+
     }
 
-    processUpload =  uploadedFile => {
+    processUpload = uploadedFile => {
         const data = new FormData()
         data.append('file', uploadedFile.file, uploadedFile.name)
         console.log(data, uploadedFile)
 
-        api.post('/posts', data, {
+        const configPost = {
             onUploadProgress: e => {
-                const progress = parseInt(Math.round((e.loaded*100)/e.total))
+                const progress = parseInt(Math.round((e.loaded * 100) / e.total))
                 console.log(e)
                 console.log(progress)
-                this.updateFile(uploadedFile.id, {progress})
+                this.updateFile(uploadedFile.id, { progress })
             }
-        })
+        }
+        api.post('/posts', data, configPost)
+
     }
     render() {
         const { uploadedFiles } = this.state
