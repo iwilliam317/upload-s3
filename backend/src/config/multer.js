@@ -37,7 +37,7 @@ module.exports = {
     dest: uploadDir,
     storage: storageTypes[process.env.STORAGE_TYPE],
     limits: {
-        fileSize: 2 * 1024 * 1024
+        fileSize: 10 * 1024 * 1024
     },
     fileFilter: (req, file, cb) => {
         const allowedMimeTypes = [
