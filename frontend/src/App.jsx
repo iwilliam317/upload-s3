@@ -31,16 +31,6 @@ class App extends Component {
         uploadedFiles.forEach(uploadedFile => this.processUpload(uploadedFile))
     }
 
-    updateFile = (id, data) => {
-        const { uploadedFiles } = this.state
-        this.setState({
-            uploadedFiles: uploadedFiles.map(uploadedFile => {
-                return id === uploadedFile.id ? { ...uploadedFile, ...data } : uploadedFile
-            })
-        })
-
-    }
-
     processUpload = uploadedFile => {
         const data = new FormData()
         data.append('file', uploadedFile.file, uploadedFile.name)
@@ -55,8 +45,26 @@ class App extends Component {
             }
         }
         api.post('/posts', data, configPost)
+            .then(response => {
+                this.updateFile(uploadedFile.id, { id: response._id, url: response.url, uploaded: true })
+            })
+            .catch(err => {
+                this.updateFile(uploadedFile.id, { error: true, uploaded: false })
+            })
+
 
     }
+
+    updateFile = (id, data) => {
+        const { uploadedFiles } = this.state
+        this.setState({
+            uploadedFiles: uploadedFiles.map(uploadedFile => {
+                return id === uploadedFile.id ? { ...uploadedFile, ...data } : uploadedFile
+            })
+        })
+
+    }
+
     render() {
         const { uploadedFiles } = this.state
         return (<Container>
