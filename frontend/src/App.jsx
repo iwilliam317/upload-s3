@@ -31,7 +31,7 @@ class App extends Component {
         uploadedFiles.forEach(uploadedFile => this.processUpload(uploadedFile))
     }
 
-    processUpload = uploadedFile => {
+    processUpload = async (uploadedFile) => {
         const data = new FormData()
         data.append('file', uploadedFile.file, uploadedFile.name)
         console.log(data, uploadedFile)
@@ -44,15 +44,14 @@ class App extends Component {
                 this.updateFile(uploadedFile.id, { progress })
             }
         }
-        api.post('/posts', data, configPost)
-            .then(response => {
-                this.updateFile(uploadedFile.id, { id: response._id, url: response.url, uploaded: true })
-            })
-            .catch(err => {
-                this.updateFile(uploadedFile.id, { error: true, uploaded: false })
-            })
-
-
+        try {
+            const response = await api.post('/posts', data, configPost)
+            const {post} = response.data
+            this.updateFile(uploadedFile.id, { id: post._id, url: post.url, uploaded: true })
+        } catch (error) {
+            console.log(error)
+            this.updateFile(uploadedFile.id, { error: true, uploaded: false })
+        }
     }
 
     updateFile = (id, data) => {
