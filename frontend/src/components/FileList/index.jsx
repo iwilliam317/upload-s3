@@ -3,7 +3,7 @@ import { Container, FileInfo, Preview } from './styles'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import { MdCheckCircle, MdError, MdLink } from 'react-icons/md'
 
-const FileList = ({ files }) => (
+const FileList = ({ files, onDelete }) => (
     <Container>
         {files.map(uploadedFile => (
             <li key={uploadedFile.id}>
@@ -11,7 +11,7 @@ const FileList = ({ files }) => (
                     <Preview src={uploadedFile.preview}></Preview>
                     <div>
                         <strong>{uploadedFile.name}</strong>
-                        {uploadedFile.uploaded && <span>{uploadedFile.readableSize} <button onClick={() => { }}>Delete</button></span>}
+                        {uploadedFile.uploaded && <span>{uploadedFile.readableSize} <button onClick={() => { onDelete(uploadedFile.id)}}>Delete</button></span>}
                     </div>
                 </FileInfo>
                 <div>
