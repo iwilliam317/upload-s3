@@ -23,7 +23,7 @@ const FileList = ({ files }) => (
                             } />
                     )}
                     {uploadedFile.url && (
-                        <a href='#' target='_blank' rel='noopener noreferrer'>
+                        <a href={uploadedFile.url} target='_blank' rel='noopener noreferrer'>
                             <MdLink style={{ marginRight: 8 }} size={24} color='#222'></MdLink>
                         </a>
                     )}

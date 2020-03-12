@@ -48,6 +48,7 @@ class App extends Component {
             const response = await api.post('/posts', data, configPost)
             const {post} = response.data
             this.updateFile(uploadedFile.id, { id: post._id, url: post.url, uploaded: true })
+            console.log(post)
         } catch (error) {
             console.log(error)
             this.updateFile(uploadedFile.id, { error: true, uploaded: false })
