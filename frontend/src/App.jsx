@@ -12,12 +12,30 @@ class App extends Component {
         uploadedFiles: []
     }
 
+    async componentDidMount() {
+        try {
+            const response = await api.get('/posts')
+            this.setState({ uploadedFiles: response.data.map(file => ({
+                id: file._id,
+                name: file.name,
+                progress: 100,
+                preview: file.url,
+                url: file.url,
+                readableSize: filesize(file.size),
+                uploaded: true
+            }))})
+            console.log(response.data)
+        } catch (error) {
+
+        }
+    }
+
     handleUpload = files => {
         const uploadedFiles = files.map(file => ({
             file,
             id: uniqueId(),
             name: file.name,
-            readableSize: filesize(22257664),
+            readableSize: filesize(file.size),
             preview: URL.createObjectURL(file),
             progress: 0,
             uploaded: false,
@@ -46,7 +64,7 @@ class App extends Component {
         }
         try {
             const response = await api.post('/posts', data, configPost)
-            const {post} = response.data
+            const { post } = response.data
             this.updateFile(uploadedFile.id, { id: post._id, url: post.url, uploaded: true })
             console.log(post)
         } catch (error) {
@@ -69,7 +87,7 @@ class App extends Component {
     onDelete = async (id) => {
         try {
             await api.delete(`/posts/${id}`)
-            console.log()
+            // console.log()
             this.setState({ uploadedFiles: this.state.uploadedFiles.filter(file => file.id !== id) })
         } catch (error) {
             throw error
