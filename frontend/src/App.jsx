@@ -87,7 +87,6 @@ class App extends Component {
     onDelete = async (id) => {
         try {
             await api.delete(`/posts/${id}`)
-            // console.log()
             this.setState({ uploadedFiles: this.state.uploadedFiles.filter(file => file.id !== id) })
         } catch (error) {
             throw error
