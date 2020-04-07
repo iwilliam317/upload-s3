@@ -20,8 +20,8 @@ describe('API', () => {
             try {
                 const response = await chai.request(app).get('/posts')
                 expect(response.statusCode).to.be.equal(200)
-                expect(response.body.lenght).to.be.equal(0)
-                console.log('asdasd',response)
+                expect(response.body).to.be.a('array')
+                expect(response.body).to.be.empty
             } catch (error) {
                 throw error
             }
@@ -29,7 +29,7 @@ describe('API', () => {
     })
 
     describe('GET /health', () => {
-        xit('should return status code 200', async () => {
+        it('should return status code 200', async () => {
             try {
                 const res = await chai.request(app).get('/health')
                 expect(res.statusCode).to.be.equal(200)
