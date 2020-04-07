@@ -15,15 +15,17 @@ class App extends Component {
     async componentDidMount() {
         try {
             const response = await api.get('/posts')
-            this.setState({ uploadedFiles: response.data.map(file => ({
-                id: file._id,
-                name: file.name,
-                progress: 100,
-                preview: file.url,
-                url: file.url,
-                readableSize: filesize(file.size),
-                uploaded: true
-            }))})
+            this.setState({
+                uploadedFiles: response.data.map(file => ({
+                    id: file._id,
+                    name: file.name,
+                    progress: 100,
+                    preview: file.url,
+                    url: file.url,
+                    readableSize: filesize(file.size),
+                    uploaded: true
+                }))
+            })
             console.log(response.data)
         } catch (error) {
 
@@ -95,15 +97,18 @@ class App extends Component {
 
     render() {
         const { uploadedFiles } = this.state
-        return (<Container>
-            <GlobalStyle />
-            <Content>
-                <Upload handleUpload={this.handleUpload} />
-                {!!uploadedFiles.length && (
-                    <FileList files={uploadedFiles} onDelete={this.onDelete} />
-                )}
-            </Content>
-        </Container>
+        return (
+            <>
+                <h1>Uploader Images</h1>
+                <Container>
+                    <GlobalStyle />
+                    <Content>
+                        <Upload handleUpload={this.handleUpload} />
+                        {!!uploadedFiles.length && (
+                            <FileList files={uploadedFiles} onDelete={this.onDelete} />
+                        )}
+                    </Content>
+                </Container> </>
         )
     }
 }
