@@ -2,7 +2,7 @@
 
 # Description
 
-![Print of application page](https://raw.githubusercontent.com/iwilliam317/upload-s3/master/assets/preview.png)
+![Print of application page](https://raw.githubusercontent.com/iwilliam317/upload-s3/master/frontend/assets/preview.png)
 
 Application that uploads images to local or AWS S3. 
 
